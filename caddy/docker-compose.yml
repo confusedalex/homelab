@@ -1,0 +1,12 @@
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: caddy:latest
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./conf:/etc/caddy
+      - ./caddy-data:/data
+      - ./caddy-config:/config

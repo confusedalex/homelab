@@ -1,0 +1,108 @@
+services:
+  gluetun:
+    container_name: gluetun
+    image: qmcgaw/gluetun
+    volumes:
+      - ./wg.conf:/gluetun/wireguard/wg0.conf
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=custom
+      - VPN_TYPE=wireguard
+    ports:
+      - "5555:8080" # sabnzbd
+      - "7878:7878" # radarr
+      - "8989:8989" # sonarr
+      - "9696:9696" # prowlarr
+    restart: always
+  sabnzbd:
+    network_mode: "service:gluetun"
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ=Europe/Berlin
+    volumes:
+      - /storage/appdata/media-stack/sabnzbd/config:/config
+      - /storage/data/usenet:/data/usenet
+      - /storage/appdata/syncthing/data/music-inbox:/data/syncthing/music-inbox
+    restart: always
+  sonarr:
+    container_name: sonarr
+    image: ghcr.io/hotio/sonarr
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=100
+      - UMASK=002
+      - TZ=Europe/Berlin
+    volumes:
+      - /storage/appdata/media-stack/sonarr:/config
+      - /storage/data/:/data
+    restart: always
+  radarr:
+    container_name: radarr
+    image: ghcr.io/hotio/radarr
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=100
+      - UMASK=002
+      - TZ=Europe/Berlin
+    volumes:
+      - /storage/appdata/media-stack/radarr:/config
+      - /storage/data/:/data
+    restart: always
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    network_mode: "service:gluetun"
+    user: 1000:100
+    volumes:
+      - /storage/appdata/media-stack/recyclarr:/config
+    environment:
+      - TZ=Europe/Berlin
+    restart: always
+  prowlarr:
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=100
+      - UMASK=002
+      - TZ=Europe/Berlin
+    volumes:
+      - /storage/appdata/media-stack/prowlarr:/config
+    restart: always
+  jellyseerr:
+    image: ghcr.io/fallenbagel/jellyseerr:latest
+    init: true
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/Berlin
+      - PORT=5055 #optional
+    ports:
+      - 5055:5055
+    volumes:
+      - /storage/appdata/media-stack/jellyseer:/app/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: always
+  navidrome:
+    image: deluan/navidrome:latest
+    user: 1000:100 # should be owner of volumes
+    environment:
+      ND_MUSICFOLDER: "/annex/resources/music/beets/library"
+    ports:
+      - "4533:4533"
+    restart: always
+    volumes:
+      - "/storage/appdata/media-stack/navidrome:/data"
+      - "/storage/annex/:/annex:ro"

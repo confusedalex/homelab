@@ -1,0 +1,10 @@
+services:
+  soju:
+    image: codeberg.org/emersion/soju:latest
+    restart: always
+    container_name: soju
+    ports:
+      - 6667:6667
+    volumes:
+      - ./config:/soju-config/:ro
+      - ./data:/var/lib/soju/
