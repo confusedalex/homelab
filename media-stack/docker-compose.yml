@@ -17,7 +17,7 @@ services:
     restart: always
   sabnzbd:
     network_mode: "service:gluetun"
-    image: lscr.io/linuxserver/sabnzbd:latest
+    image: lscr.io/linuxserver/sabnzbd:4.5.5
     container_name: sabnzbd
     environment:
       - PUID=1000
@@ -77,7 +77,7 @@ services:
       - /storage/appdata/media-stack/prowlarr:/config
     restart: always
   jellyseerr:
-    image: ghcr.io/fallenbagel/jellyseerr:latest
+    image: ghcr.io/fallenbagel/jellyseerr:2.7.3
     init: true
     container_name: jellyseerr
     environment:
