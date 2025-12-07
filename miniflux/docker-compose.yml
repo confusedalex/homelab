@@ -1,6 +1,6 @@
 services:
   miniflux:
-    image: miniflux/miniflux:latest
+    image: ghcr.io/miniflux/miniflux:2.2.14
     ports:
       - "5008:8080"
     depends_on:
