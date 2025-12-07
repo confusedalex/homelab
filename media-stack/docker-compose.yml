@@ -1,7 +1,7 @@
 services:
   gluetun:
     container_name: gluetun
-    image: qmcgaw/gluetun
+    image: qmcgaw/gluetun:v3.40.3
     volumes:
       - ./wg.conf:/gluetun/wireguard/wg0.conf
     cap_add:
@@ -30,7 +30,7 @@ services:
     restart: always
   sonarr:
     container_name: sonarr
-    image: ghcr.io/hotio/sonarr
+    image: ghcr.io/hotio/sonarr:release-4.0.16.2944
     network_mode: "service:gluetun"
     environment:
       - PUID=1000
@@ -43,7 +43,7 @@ services:
     restart: always
   radarr:
     container_name: radarr
-    image: ghcr.io/hotio/radarr
+    image: ghcr.io/hotio/radarr:release-6.0.4.10291
     network_mode: "service:gluetun"
     environment:
       - PUID=1000
@@ -55,7 +55,7 @@ services:
       - /storage/data/:/data
     restart: always
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
+    image: ghcr.io/recyclarr/recyclarr:7.5.2
     container_name: recyclarr
     network_mode: "service:gluetun"
     user: 1000:100
@@ -66,7 +66,7 @@ services:
     restart: always
   prowlarr:
     container_name: prowlarr
-    image: ghcr.io/hotio/prowlarr
+    image: ghcr.io/hotio/prowlarr:release-2.3.0.5236
     network_mode: "service:gluetun"
     environment:
       - PUID=1000
@@ -96,7 +96,7 @@ services:
       retries: 3
     restart: always
   navidrome:
-    image: deluan/navidrome:latest
+    image: deluan/navidrome:0.59.0
     user: 1000:100 # should be owner of volumes
     environment:
       ND_MUSICFOLDER: "/annex/resources/music/beets/library"
