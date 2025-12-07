@@ -12,7 +12,7 @@ services:
       - BASE_URL=https://rss.mytbu.de/
     restart: always
   miniflux-db:
-    image: postgres:17-alpine
+    image: postgres:18-alpine
     environment:
       - POSTGRES_USER=miniflux
       - POSTGRES_PASSWORD=secret
