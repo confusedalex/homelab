@@ -14,7 +14,7 @@ services:
     env_file: database.env
 
   webserver:
-    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.20.1 
     restart: always
     depends_on:
       - db
@@ -48,5 +48,5 @@ services:
       - "--chromium-allow-list=file:///tmp/.*"
 
   tika:
-    image: docker.io/apache/tika:latest
+    image: docker.io/apache/tika:3.2.3.0
     restart: always
