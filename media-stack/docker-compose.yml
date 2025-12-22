@@ -26,7 +26,6 @@ services:
     volumes:
       - /storage/appdata/media-stack/sabnzbd/config:/config
       - /storage/data/usenet:/data/usenet
-      - /storage/appdata/syncthing/data/music-inbox:/data/syncthing/music-inbox
     restart: always
   sonarr:
     container_name: sonarr
