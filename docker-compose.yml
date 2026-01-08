@@ -1,12 +1,9 @@
 include:
   - actualbudget/docker-compose.yml
-  - baikal/docker-compose.yml
   - caddy/docker-compose.yml
-  - homeassistant/docker-compose.yml
   - immich/docker-compose.yml
   - media-stack/docker-compose.yml
   - miniflux/docker-compose.yml
   - paperless/docker-compose.yml
   - soju/docker-compose.yml
   - syncthing/docker-compose.yml
-  - technitium-dns/docker-compose.yml
