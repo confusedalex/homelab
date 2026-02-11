@@ -95,7 +95,7 @@ services:
       retries: 3
     restart: always
   navidrome:
-    image: deluan/navidrome:0.59.0
+    image: deluan/navidrome:0.60.3
     user: 1000:100 # should be owner of volumes
     environment:
       ND_MUSICFOLDER: "/annex/resources/music/beets/library"
