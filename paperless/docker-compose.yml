@@ -7,10 +7,10 @@ services:
       - /storage/appdata/paperless/appdata/redisdata:/data
 
   db:
-    image: docker.io/library/postgres:16
+    image: docker.io/library/postgres:18
     restart: always
     volumes:
-      - /storage/appdata/paperless/appdata/pgdata:/var/lib/postgresql/data
+      - /storage/appdata/paperless/appdata/pgdata:/var/lib/postgresql
     env_file: database.env
 
   webserver:
