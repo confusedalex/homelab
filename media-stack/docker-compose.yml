@@ -95,7 +95,7 @@ services:
       retries: 3
     restart: always
   navidrome:
-    image: deluan/navidrome:0.63.1
+    image: deluan/navidrome:0.63.2
     user: 1000:100 # should be owner of volumes
     environment:
       ND_MUSICFOLDER: "/storage/data/media/music"
