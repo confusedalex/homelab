@@ -17,7 +17,7 @@ services:
     restart: always
   sabnzbd:
     network_mode: "service:gluetun"
-    image: lscr.io/linuxserver/sabnzbd:5.1.0
+    image: lscr.io/linuxserver/sabnzbd:5.1.2
     container_name: sabnzbd
     environment:
       - PUID=1000
