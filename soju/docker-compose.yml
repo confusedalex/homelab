@@ -1,6 +1,6 @@
 services:
   soju:
-    image: codeberg.org/emersion/soju:v0.10.1
+    image: codeberg.org/emersion/soju:v0.11.1
     restart: always
     container_name: soju
     ports:
